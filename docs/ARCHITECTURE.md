@@ -30,3 +30,6 @@ Tiempo total y carga: reloj monotónico Android. Tiempo al primer texto visible:
 ## Aceptación
 
 Las pruebas locales automatizadas deben cubrir A/B/A, límites, cancelación, fallos, bloqueo de duplicados, cambios de modelo/identidad, FTS, reapertura de la base y copias autenticadas. La validación completa requiere instalar el APK, ejecutar los dos archivos reales, reiniciar Android y probar modo avión. El estado real se publica en `VALIDATION.md`.
+
+La base, el motor y el bloqueo de operaciones pertenecen al proceso de Application. Reabrir la actividad no crea otro motor. Antes de cargar se exige RAM libre superior a 3 veces el tamaño del archivo más 512 MiB, con mínimo de 1 GiB. Es una estimación conservadora de admisión, no una garantía frente a picos nativos ni al cierre por Android.
+

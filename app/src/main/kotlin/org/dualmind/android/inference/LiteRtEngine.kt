@@ -24,8 +24,11 @@ class LiteRtEngine(private val context: Context) : InferenceEngine {
             require(file.isFile && file.length() == model.bytes) { "El modelo falta o cambió de tamaño. Vuelve a importarlo." }
             val memory = ActivityManager.MemoryInfo()
             context.getSystemService(ActivityManager::class.java).getMemoryInfo(memory)
-            check(!memory.lowMemory && memory.availMem > 512L * 1024 * 1024) {
-                "Memoria insuficiente. Cierra otras aplicaciones, reduce el contexto o usa un modelo más pequeño."
+            // Conservative admission estimate, not a guarantee of the runtime's peak allocation.
+            // In testing, the 977 MB Qwen file exhausted a 4 GiB Android emulator during native loading.
+            val minimumFree = maxOf(1024L * 1024 * 1024, model.bytes * 3 + 512L * 1024 * 1024)
+            check(!memory.lowMemory && memory.availMem > minimumFree) {
+                "Memoria insuficiente para cargar este modelo: se estiman al menos ${minimumFree / 1024 / 1024} MiB libres. Cierra otras aplicaciones o usa un modelo menor."
             }
             Engine.setNativeMinLogSeverity(LogSeverity.ERROR)
             ExperimentalFlags.enableBenchmark = true
