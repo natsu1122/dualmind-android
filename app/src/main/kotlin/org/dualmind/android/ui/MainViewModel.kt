@@ -35,6 +35,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val state = _state.asStateFlow()
     private lateinit var container: AppContainer
     private var operation: Job? = null
+    private var searchJob: Job? = null
     init {
         viewModelScope.launch {
             try {
@@ -82,7 +83,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun setProject(project: String) { if (!_state.value.busy) { newChat(); _state.update { it.copy(project = project) } } }
     fun setMode(mode: Mode) { if (!_state.value.busy) _state.update { it.copy(mode = mode) } }
     fun search(query: String) {
-        viewModelScope.launch {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
             val ids = if (query.isBlank()) null else container.dao.searchChats(query.take(200)).toSet()
             _state.update { it.copy(searchIds = ids) }
         }

@@ -15,7 +15,7 @@ Registrar versión de Android/HyperOS, APK/commit, hash de modelos, contexto, to
 11. Exportar copia con contraseña, importar, probar contraseña incorrecta, archivo manipulado y copia de versión no compatible. Confirmar que un fallo no modifica los datos existentes.
 12. Probar limpieza de historial y eliminación total. Asegurarse de que las copias externas no se borran por accidente.
 13. En modo avión y sin Wi-Fi, repetir Rápido y Debate. Revisar que la app no solicita permisos de red o acceso amplio a archivos.
-14. Ejecutar `./gradlew :app:connectedDebugAndroidTest` con USB autorizado. Esto verifica SQLCipher/Keystore, no los modelos.
+14. Ejecutar `./gradlew :app:connectedDebugAndroidTest` con USB autorizado. Verifica SQLCipher/Keystore y UI. La prueba nativa solo se ejecuta al proporcionar explícitamente `modelPath`; consulta `VALIDATION.md`.
 15. Sesión de 20 minutos: registrar PSS, tiempos, tokens/s reales, temperatura y batería. Comprobar comportamiento al pasar a segundo plano y ante presión de memoria. No prometer continuidad si Android termina el proceso.
 
 Una prueba fallida se registra con el paso, configuración y error sin conversaciones personales. No compartir bases ni capturas con datos sensibles.

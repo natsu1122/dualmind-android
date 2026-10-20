@@ -2,7 +2,7 @@
 
 Aplicación Android original para deliberación entre dos modelos locales, memoria persistente y control de los datos. Interfaz en español, Kotlin, Compose Material 3, Room y LiteRT-LM.
 
-**Versión inicial de desarrollo.** El estado de las comprobaciones y las limitaciones están en [VALIDATION.md](docs/VALIDATION.md). Una compilación correcta no demuestra rendimiento ni compatibilidad de inferencia en el Xiaomi 15T. No se incluyen pesos ni respuestas simuladas.
+**Versión inicial de desarrollo.** Qwen generó un debate real A/B/A en Android emulado, sin red y con cargas secuenciales. Gemma y el Xiaomi 15T quedan pendientes de validación física. El estado completo está en [VALIDATION.md](docs/VALIDATION.md). No se incluyen pesos ni respuestas simuladas.
 
 ## Instalación
 
@@ -66,9 +66,10 @@ app/
   src/main/.../inference/  Adaptador real LiteRT-LM
   src/main/.../ui/    ViewModel y seis pantallas Compose
   src/test/          Pruebas Room/SQLite con Robolectric
-  src/androidTest/   Prueba SQLCipher + Keystore en Android
+  src/androidTest/   SQLCipher/Keystore, navegación UI y debate nativo opcional con pesos externos
   schemas/           Esquema Room versionado
 docs/                 Fuentes, arquitectura, modelos, validación y firma
+licenses/             Licencias y avisos de terceros incluidos también en el APK
 .github/workflows/    Compilación, pruebas, lint y APK como artefacto
 ```
 

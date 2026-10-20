@@ -133,7 +133,7 @@ fun DualMindApp(vm: MainViewModel = viewModel()) {
     val turns = s.currentTurns.filter { it.agent == "Tú" || it.kind == "Final" }
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = { history = true }, enabled = !s.busy) { Icon(Icons.Outlined.History, null); Text(" Historial") }
+            TextButton(onClick = { vm.search(""); history = true }, enabled = !s.busy) { Icon(Icons.Outlined.History, null); Text(" Historial") }
             Spacer(Modifier.weight(1f))
             TextButton(onClick = vm::newChat, enabled = !s.busy) { Icon(Icons.Outlined.Add, null); Text(" Nuevo") }
         }

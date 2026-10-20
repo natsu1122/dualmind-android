@@ -27,6 +27,8 @@ Qwen publica además `Qwen3_1.7B.litertlm`, de 2.056.729.520 bytes. La variante 
 
 La documentación de LiteRT-LM usa Gemma3-1B-IT y el catálogo Qwen actualiza metadatos para 0.18.0. Esto fundamenta la integración, pero **no demuestra ejecución en Xiaomi 15T**. Cada modelo tiene un botón Probar que hace generación real. Los fallos no se reemplazan por texto ficticio. La aplicación acepta otros `.litertlm` y mantiene el motor detrás de `InferenceEngine`.
 
+Qwen se ejecutó realmente con CPU en escritorio y en Android API 35 x86_64, incluido un debate A/B/A con el mismo archivo. El emulador de 4 GiB fue insuficiente; con 6 GiB la prueba pasó. Se observó PSS de unos 4,0 GiB al terminar cada intervención. Gemma y la combinación Qwen + Gemma quedan pendientes de prueba física. Los detalles están en [VALIDATION.md](VALIDATION.md).
+
 Para archivos externos se aplica un techo conservador de 4.096 tokens. La aplicación no interpreta automáticamente todos los límites internos de un contenedor. Si un modelo requiere un contexto inferior, redúcelo en Ajustes; el runtime puede rechazar formatos o parámetros incompatibles. Modelos que solo admitan NPU no están soportados por esta versión.
 
 La importación comprueba extensión, tamaño mínimo, límite de 12 GiB, espacio libre y SHA-256 cuando hay referencia. La compatibilidad estructural y de runtime se comprueba al cargar/generar. El tamaño del archivo se vuelve a comprobar antes de inferir. No se afirma que comprobar una extensión o calcular una huella valide por sí solo un modelo.
