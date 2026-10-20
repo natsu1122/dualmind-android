@@ -1,0 +1,9 @@
+DUAL MIND
+Copyright 2026 DUAL MIND contributors
+
+Original application code licensed under Apache License 2.0.
+The application uses LiteRT-LM and AndroidX, developed by Google and their
+contributors, and SQLCipher, developed by Zetetic LLC and contributors.
+Model weights are not included. Their licenses and access conditions are
+independent of the application's Apache License 2.0.
+See THIRD_PARTY_NOTICES.md.

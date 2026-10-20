@@ -1,0 +1,14 @@
+<resources>
+    <style name="Theme.DualMind" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+    <style name="Theme.DualMind.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#10131D</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_dualmind</item>
+        <item name="postSplashScreenTheme">@style/Theme.DualMind</item>
+    </style>
+</resources>
