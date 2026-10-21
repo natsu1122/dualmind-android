@@ -6,7 +6,7 @@ Aplicación Android original para deliberación entre dos modelos locales, memor
 
 ## Instalación
 
-1. Descarga el APK identificado como **development/debug** desde [Releases](https://github.com/natsu1122/dualmind-android/releases), cuando esté publicado, o desde el artefacto `dualmind-development-apk` de una ejecución correcta de [Android CI](https://github.com/natsu1122/dualmind-android/actions).
+1. Descarga el APK identificado como **development/debug** desde [Releases](https://github.com/natsu1122/dualmind-android/releases), o desde el artefacto `dualmind-development-apk` de una ejecución correcta de [Android CI](https://github.com/natsu1122/dualmind-android/actions).
 2. Necesitas Android 8.0/API 26 o posterior y procesador ARM64. La referencia prevista es Xiaomi 15T, Dimensity 8400-Ultra, 12 GB RAM. Se recomienda Android actualizado.
 3. Abre el APK en el teléfono y autoriza la instalación desde esa aplicación cuando Android lo solicite. Es una compilación de pruebas; no está publicada en Play Store.
 4. Descarga los modelos en el navegador siguiendo [MODELS.md](docs/MODELS.md). Para Gemma, inicia sesión y acepta personalmente sus condiciones.

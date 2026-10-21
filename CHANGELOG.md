@@ -1,6 +1,6 @@
 # Historial
 
-## 0.1.0-alpha — 2026-10-20
+## 0.1.0-alpha — 2026-10-21
 
 - Proyecto Android original con Compose Material 3 y seis pantallas en español.
 - Adaptador LiteRT-LM 0.18.0, importación local de modelos y asignaciones A/B.

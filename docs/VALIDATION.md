@@ -1,6 +1,6 @@
 # Validación de la versión inicial
 
-Estado comprobado el 20 de octubre de 2026. Esta versión es una **alpha de desarrollo**, firmada con certificado debug. No se ha conectado un Xiaomi 15T al entorno de desarrollo.
+Comprobaciones realizadas el 20 y el 21 de octubre de 2026. Esta versión es una **alpha de desarrollo**, firmada con certificado debug. No se ha conectado un Xiaomi 15T al entorno de desarrollo.
 
 ## Comprobaciones realizadas
 
@@ -10,7 +10,7 @@ Estado comprobado el 20 de octubre de 2026. Esta versión es una **alpha de desa
 | `:app:testDebugUnitTest` | 5 pruebas Robolectric/SQLite, 0 fallos: persistencia, recuperación, FTS, identidades y restauración |
 | `:app:assembleDebug` | APK ARM64 generado correctamente |
 | `:app:assembleDebugAndroidTest` | APK de instrumentación generado correctamente |
-| `:app:lintDebug` | Sin errores; avisos de versiones nuevas, ABI de ChromeOS y recomendaciones menores |
+| `:app:lintDebug` | 0 errores y 15 advertencias: versiones nuevas, ABI de ChromeOS, configuración de backup para API antiguas y recomendaciones KTX |
 | Qwen3-1.7B en LiteRT-LM JVM 0.18.0 / CPU / Java 21 | Inferencia real: «Dos más dos es cuatro.» |
 | SQLCipher + Android Keystore, API 35 x86_64 | Prueba instrumentada correcta: misma clave, base reabierta y contenido ausente en texto plano |
 | Navegación Compose, API 35 x86_64 | Prueba instrumentada correcta de las seis pantallas y creación explícita de recuerdo |
@@ -18,14 +18,28 @@ Estado comprobado el 20 de octubre de 2026. Esta versión es una **alpha de desa
 | Debate nativo Qwen, API 35 x86_64, 6 GiB | Correcto: tres cargas secuenciales A/B/A, tres respuestas no vacías, CPU, Wi-Fi y datos desactivados |
 | Revisión visual | Seis capturas reales del emulador inspeccionadas en modo claro; sin solapamientos de controles observados |
 | Manifiesto fusionado debug | Sin permiso `INTERNET`; copias automáticas deshabilitadas y exclusiones explícitas de transferencia |
+| APK de entrega | `apksigner verify` correcto, firma v2 debug; `zipalign -c -P 16 4` correcto; todos los segmentos ELF LOAD de las cuatro bibliotecas ARM64 alineados a 16.384 bytes |
+| GitHub Actions, Ubuntu/JDK 17 | [Ejecución 39500733459](https://github.com/natsu1122/dualmind-android/actions/runs/39500733459) correcta sobre `a9ba254`: pruebas, Lint, ambos APK, firma, checksum y artefactos publicados |
+
+## APK de entrega
+
+- Archivo: `dualmind-0.1.0-alpha-arm64-debug.apk`, 45.760.411 bytes.
+- Código compilado: `a9ba254c00676b26311032d0b725153e854c410e`. Los cambios posteriores de documentación no modifican este APK.
+- Paquete `org.dualmind.android`, versión `0.1.0-alpha`, código 1, Android mínimo API 26, destino API 36, ABI `arm64-v8a`.
+- SHA-256: `117f709b7c1ddf1166b1204ec527a32eb2ef3868f9d308900946a9cdb6f0b644`.
+- Certificado debug SHA-256: `f602bf40eda846163b8e7a066ee30c78741f3415afb6f09888dd416398030c39`.
+
+El APK ARM64 se compiló y verificó estáticamente; la ejecución Android se probó mediante la variante x86_64 del mismo proyecto. La instalación e inferencia ARM64 física siguen pendientes. El dispositivo y los pesos no se sustituyeron por respuestas simuladas.
 
 El archivo de Qwen usado en las pruebas coincide con el SHA-256 publicado en `MODELS.md`. Los pesos permanecen fuera del repositorio. En Android, ambos roles usaron **el mismo archivo Qwen**, con identidades distintas. Esto verifica inferencia y orquestación real A/B/A; no certifica dos familias diferentes ni Gemma.
 
-La suite nativa finalizó `OK (1 test)` en 126,643 segundos, incluyendo copia y hash del modelo. Las pruebas separadas de almacenamiento y UI finalizaron `OK (2 tests)`; la UI se repitió correctamente después de centralizar los recursos por proceso.
+La primera suite nativa finalizó `OK (1 test)` en 126,643 segundos, incluyendo copia y hash del modelo. Las pruebas separadas de almacenamiento y UI finalizaron `OK (2 tests)`.
+
+El 21 de octubre se repitió la suite conjunta sobre el código final `a9ba254`, incluida la nueva admisión de RAM y los recursos compartidos por proceso: **`OK (3 tests)` en 164,497 segundos**. Pasaron SQLCipher/Keystore, navegación y memoria explícita, y las tres generaciones reales A/B/A. Esta ejecución usó la variante x86_64, 6 GiB y redes desactivadas.
 
 ### Mediciones del emulador, no del Xiaomi
 
-Contexto 2.048, máximo 64 tokens por intervención, cuatro hilos CPU, LiteRT-LM 0.18.0. El emulador tenía 6 GiB configurados. Los valores son una observación de prueba, no un benchmark representativo del teléfono.
+Primera ejecución correcta: contexto 2.048, máximo 64 tokens por intervención, cuatro hilos CPU, LiteRT-LM 0.18.0. El emulador tenía 6 GiB configurados. Los valores son una observación de prueba, no un benchmark representativo del teléfono.
 
 | Intervención | Total | Primer texto, incluida carga | Carga | Tokens nativos | Tokens/s nativos | PSS al terminar, antes de liberar |
 |---|---:|---:|---:|---:|---:|---:|
@@ -54,7 +68,6 @@ Las pruebas no descargan pesos. Sin `modelPath`, la prueba nativa se omite expl�
 
 ## Pendiente de validación
 
-- Ejecución de GitHub Actions sobre el código publicado y verificación del APK de entrega.
 - Gemma3-1B-IT: el usuario decidió validarlo posteriormente en su Xiaomi, tras aceptar sus condiciones. No se descargó ni se probó.
 - Dos familias distintas de modelos en un debate real: Qwen + Gemma.
 - Xiaomi 15T: instalación ARM64, importación con selector SAF, aceleración GPU/fallback, cancelación durante carga nativa, carga térmica, batería, memoria bajo presión y latencias reales.
